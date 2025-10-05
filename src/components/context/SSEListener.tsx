@@ -71,6 +71,13 @@ export const SSEEventListener: React.FC = () => {
       actionsRef.current.removeOrganization(id);
     };
 
+    const handleOrganizationsDeleted = (event: MessageEvent) => {
+      const deleted: number[] = JSON.parse(event.data);
+      deleted.forEach((id) => {
+        actionsRef.current.removeOrganization(id);
+      });
+    };
+
     const handleCoordinatesCreated = (event: MessageEvent) => {
       const coordinates: Coordinates = JSON.parse(event.data);
       actionsRef.current.addCoordinates(coordinates.id, coordinates);
@@ -93,6 +100,10 @@ export const SSEEventListener: React.FC = () => {
     eventSource.addEventListener(
       "ORGANIZATION_DELETED",
       handleOrganizationDeleted
+    );
+    eventSource.addEventListener(
+      "ORGANIZATIONS_DELETED",
+      handleOrganizationsDeleted
     );
     eventSource.addEventListener(
       "COORDINATES_CREATED",
@@ -122,6 +133,10 @@ export const SSEEventListener: React.FC = () => {
       eventSource.removeEventListener(
         "ORGANIZATION_DELETED",
         handleOrganizationDeleted
+      );
+      eventSource.removeEventListener(
+        "ORGANIZATIONS_DELETED",
+        handleOrganizationsDeleted
       );
       eventSource.removeEventListener(
         "COORDINATES_CREATED",

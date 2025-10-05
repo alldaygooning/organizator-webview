@@ -5,6 +5,7 @@ import { DatabaseProvider } from "./components/context/DatabaseContext";
 import { UserProvider } from "./components/context/UserContext";
 import UserHeader from "./components/ui/user/UserHeader";
 import { SSEEventListener } from "./components/context/SSEListener";
+import OrganizationToolBar from "./components/ui/toolbar/OrganizationToolBar";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <UserProvider>
             <Container>
               <UserHeader />
+              <OrganizationToolBar />
               <Box mt={1}>
                 <OrgTable />
               </Box>

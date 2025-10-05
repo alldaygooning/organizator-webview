@@ -5,7 +5,7 @@ import type { Organization } from "../../../entities/organization/Organization";
 import type { Coordinates } from "../../../entities/organization/attribute/Coordinates";
 
 const formatOrganizationType = (type: string): string => {
-    return type?.replace("_", " ").toLowerCase() || "-";
+    return type?.replaceAll("_", " ") || "-";
 };
 
 // Memoize the cell formatters to prevent infinite re-renders

@@ -3,11 +3,12 @@ import { createColumns } from "./columns";
 import { useMemo } from "react";
 import { useDatabase } from "../../context/DatabaseContext";
 import { useUser } from "../../context/UserContext";
-import AddButton from "./AddButton";
+import AddButton from "./button/AddButton";
 import EditButton from "./EditButton"; // Import the new EditButton
-import { Box, IconButton } from "@mui/material";
+import { Box, Container, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { notificationService } from "../../../notification/notification";
+import DeleteByTypeButton from "./button/DeleteByTypeButton";
 
 export const useOrgTable = () => {
   const db = useDatabase();
@@ -33,7 +34,21 @@ export const useOrgTable = () => {
     enableDensityToggle: false,
 
     renderTopToolbarCustomActions: () =>
-      userContext.isLoggedIn ? <AddButton /> : "",
+      userContext.isLoggedIn ? (
+        <Container
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 1,
+            alignItems: "center",
+          }}
+        >
+          <AddButton />
+          <DeleteByTypeButton />
+        </Container>
+      ) : (
+        ""
+      ),
 
     renderRowActions: ({ row }) => {
       const organization = row.original;
