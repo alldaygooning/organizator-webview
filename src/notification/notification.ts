@@ -4,7 +4,7 @@ class NotificationService {
   private static instance: NotificationService;
   private notificationContext: any = null;
 
-  private constructor() {}
+  private constructor() { }
 
   static getInstance(): NotificationService {
     if (!NotificationService.instance) {
@@ -15,6 +15,7 @@ class NotificationService {
 
   setContext(context: any) {
     this.notificationContext = context;
+    console.log("NotificationService context received:", !!context);
   }
 
   private getContext() {
@@ -26,23 +27,33 @@ class NotificationService {
   }
 
   notify(options: NotificationOptions) {
-    this.getContext()?.notify(options);
+    const context = this.getContext();
+    console.log('Calling notify with context:', !!context, 'options:', options);
+    context?.notify(options);
   }
 
-  info(message: string, title: string) {
-    this.getContext()?.info(message, title);
+  info(title: string, message: string) {
+    const context = this.getContext();
+    console.log('Calling info with context:', !!context, 'title:', title);
+    context?.info(title, message);
   }
 
-  error(message: string, title: string) {
-    this.getContext()?.error(message, title);
+  error(title: string, message: string) {
+    const context = this.getContext();
+    console.log('Calling error with context:', !!context, 'title:', title);
+    context?.error(title, message);
   }
 
-  warn(message: string, title: string) {
-    this.getContext()?.warn(message, title);
+  warn(title: string, message: string) {
+    const context = this.getContext();
+    console.log('Calling warn with context:', !!context, 'title:', title);
+    context?.warn(title, message);
   }
 
-  success(message: string, title: string) {
-    this.getContext()?.success(message, title);
+  success(title: string, message: string) {
+    const context = this.getContext();
+    console.log('Calling success with context:', !!context, 'title:', title);
+    context?.success(title, message);
   }
 }
 

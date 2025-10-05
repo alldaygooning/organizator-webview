@@ -1,22 +1,18 @@
 import React from "react";
 import { AppBar, Toolbar, Button, Box, Typography } from "@mui/material";
-import SignUpModal from "./modal/SignupModal";
-import LoginModal from "./modal/LoginModal";
-import { useUser, type User } from "./user/UserContext";
+import SignUpModal from "./SignupModal";
+import LoginModal from "./LoginModal";
 import { useTheme } from "@mui/material/styles";
-import { useNotification } from "./notification/NotificationProvider";
+import { useNotification } from "../../../notification/NotificationProvider";
+import { useUser } from "../../context/UserContext";
 
-interface Props {
-  onLogin(user: User | null): void;
-}
-
-const UserHeader: React.FC<Props> = ({ onLogin }: Props) => {
+const UserHeader: React.FC = () => {
   const [loginOpen, setLoginOpen] = React.useState(false);
   const [signUpOpen, setSignUpOpen] = React.useState(false);
 
   const { success } = useNotification();
 
-  const userContext = useUser();
+  const { isLoggedIn, user, logout } = useUser();
   const theme = useTheme();
 
   const handleLogout = async () => {
@@ -29,7 +25,7 @@ const UserHeader: React.FC<Props> = ({ onLogin }: Props) => {
       });
 
       if (response.ok) {
-        onLogin(null);
+        logout();
         success("Log-out successful", "See you later!");
       } else {
         console.error("Logout failed");
@@ -43,7 +39,7 @@ const UserHeader: React.FC<Props> = ({ onLogin }: Props) => {
     <>
       <AppBar position="static" sx={{ backgroundColor: "transparent" }}>
         <Toolbar sx={{ gap: 1 }}>
-          {userContext.isLoggedIn && userContext.user ? (
+          {isLoggedIn && user ? (
             <Box
               sx={{
                 display: "flex",
@@ -66,9 +62,9 @@ const UserHeader: React.FC<Props> = ({ onLogin }: Props) => {
                   minWidth: 0,
                 }}
                 variant="h4"
-                title={userContext.user.name}
+                title={user.name}
               >
-                {userContext.user.name}
+                {user.name}
               </Typography>
               <Button
                 variant="outlined"
@@ -113,16 +109,8 @@ const UserHeader: React.FC<Props> = ({ onLogin }: Props) => {
         </Toolbar>
       </AppBar>
 
-      <SignUpModal
-        open={signUpOpen}
-        onClose={() => setSignUpOpen(false)}
-        onLogin={onLogin}
-      />
-      <LoginModal
-        open={loginOpen}
-        onClose={() => setLoginOpen(false)}
-        onLogin={onLogin}
-      />
+      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
     </>
   );
 };

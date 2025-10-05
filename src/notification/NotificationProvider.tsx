@@ -2,6 +2,7 @@ import React from "react";
 import { SnackbarProvider, useSnackbar, type VariantType } from "notistack";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import { Typography } from "@mui/material";
+import { notificationService } from "./notification";
 
 export interface NotificationOptions {
   variant: "info" | "error" | "warn" | "success";
@@ -52,7 +53,6 @@ const useNotificationInternal = () => {
 
       const content = (
         <div style={{ fontFamily: theme.typography.fontFamily }}>
-          <Typography variant="body2">{message}</Typography>
           <Typography
             variant="subtitle1"
             fontWeight="bold"
@@ -60,6 +60,7 @@ const useNotificationInternal = () => {
           >
             {title}
           </Typography>
+          <Typography variant="body2">{message}</Typography>
         </div>
       );
 
@@ -76,29 +77,29 @@ const useNotificationInternal = () => {
   );
 
   const info = React.useCallback(
-    (message: string, title: string) => {
-      notify({ variant: "info", message, title });
+    (title: string, message: string) => {
+      notify({ variant: "info", title, message });
     },
     [notify]
   );
 
   const error = React.useCallback(
-    (message: string, title: string) => {
-      notify({ variant: "error", message, title });
+    (title: string, message: string) => {
+      notify({ variant: "error", title, message });
     },
     [notify]
   );
 
   const warn = React.useCallback(
-    (message: string, title: string) => {
-      notify({ variant: "warn", message, title });
+    (title: string, message: string) => {
+      notify({ variant: "warn", title, message });
     },
     [notify]
   );
 
   const success = React.useCallback(
-    (message: string, title: string) => {
-      notify({ variant: "success", message, title });
+    (title: string, message: string) => {
+      notify({ variant: "success", title, message });
     },
     [notify]
   );
@@ -116,6 +117,11 @@ const NotificationProviderInternal: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const notification = useNotificationInternal();
+
+  React.useEffect(() => {
+    notificationService.setContext(notification);
+    console.log("Notification context set successfully");
+  }, [notification]);
 
   return (
     <NotificationContext.Provider value={notification}>

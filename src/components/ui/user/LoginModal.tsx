@@ -7,22 +7,25 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { validateUsername, validatePassword } from "../user/validation";
-import { ApiError, loginUser } from "../user/login";
-import { useNotification } from "../notification/NotificationProvider";
-import type { User } from "../user/UserContext";
+import { validateUsername, validatePassword } from "../../../validation";
+import { useNotification } from "../../../notification/NotificationProvider";
+import { ApiException } from "../../../exception";
+import type { User } from "../../../entities/user/User";
+import { loginUser } from "../../../entities/user/login";
+import { useUser } from "../../context/UserContext";
 
 interface LoginModalProps {
   open: boolean;
   onClose: () => void;
-  onLogin(user: User): void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onLogin }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [usernameError, setUsernameError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
+
+  const { setUser } = useUser();
 
   const { success, error } = useNotification();
 
@@ -37,12 +40,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose, onLogin }) => {
       try {
         const user: User = await loginUser(username, password);
         success("Log-in successful", "Welcome back!");
-        onLogin(user);
+        setUser(user);
         onClose();
         setUsername("");
         setPassword("");
       } catch (err) {
-        if (err instanceof ApiError) {
+        if (err instanceof ApiException) {
           if (err.status === 401) {
             setPassword("");
             setUsernameError("Check if username is correct");

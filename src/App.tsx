@@ -1,25 +1,25 @@
-import { Container } from "@mui/material";
-import UserHeader from "./UserHeader";
 import { NotificationProvider } from "./notification/NotificationProvider";
-import { UserProvider, type User } from "./user/UserContext";
-import { useState } from "react";
+import { OrgTable } from "./components/ui/table/OrgTable";
+import { Box, Container } from "@mui/material";
+import { DatabaseProvider } from "./components/context/DatabaseContext";
+import { UserProvider } from "./components/context/UserContext";
+import UserHeader from "./components/ui/user/UserHeader";
 
 const App = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  const handleSetUser = (u: User | null) => {
-    setUser(u);
-    setIsLoggedIn(u !== null);
-  };
   return (
     <>
-      <UserProvider value={{ user, isLoggedIn, setUser }}>
-        <NotificationProvider>
-          <Container></Container>
-          <UserHeader onLogin={handleSetUser} />
-        </NotificationProvider>
-      </UserProvider>
+      <NotificationProvider>
+        <DatabaseProvider>
+          <UserProvider>
+            <Container>
+              <UserHeader />
+              <Box mt={1}>
+                <OrgTable />
+              </Box>
+            </Container>
+          </UserProvider>
+        </DatabaseProvider>
+      </NotificationProvider>
     </>
   );
 };

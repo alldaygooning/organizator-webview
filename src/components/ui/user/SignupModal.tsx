@@ -8,22 +8,18 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { useNotification } from "../notification/NotificationProvider";
-import { validateUsername, validatePassword } from "../user/validation";
-import { loginUser } from "../user/login";
-import type { User } from "../user/UserContext";
+import { useNotification } from "../../../notification/NotificationProvider";
+import { validateUsername, validatePassword } from "../../../validation";
+import type { User } from "../../../entities/user/User";
+import { loginUser } from "../../../entities/user/login";
+import { useUser } from "../../context/UserContext";
 
 interface SignUpModalProps {
   open: boolean;
   onClose: () => void;
-  onLogin(user: User): void;
 }
 
-const SignUpModal: React.FC<SignUpModalProps> = ({
-  open,
-  onClose,
-  onLogin,
-}) => {
+const SignUpModal: React.FC<SignUpModalProps> = ({ open, onClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -31,6 +27,8 @@ const SignUpModal: React.FC<SignUpModalProps> = ({
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [repeatPasswordError, setRepeatPasswordError] = useState("");
+
+  const { setUser } = useUser();
 
   const { success, error } = useNotification();
 
@@ -96,7 +94,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({
           try {
             const user: User = await loginUser(username, password);
             success("Welcome!", "You have been automatically logged in.");
-            onLogin(user);
+            setUser(user);
           } catch (err) {
             error("Account created", "Please log in manually.");
           }

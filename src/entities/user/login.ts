@@ -1,14 +1,5 @@
-import type { User } from "./UserContext";
-
-export class ApiError extends Error {
-  public status: number;
-
-  constructor(message: string, status: number) {
-    super(message);
-    this.status = status;
-    this.name = 'ApiError';
-  }
-}
+import { ApiException } from "../../exception";
+import { User } from "./User";
 
 export const loginUser = async (username: string, password: string): Promise<User> => {
   const response = await fetch("/api/users/login", {
@@ -23,9 +14,11 @@ export const loginUser = async (username: string, password: string): Promise<Use
   });
 
   if (!response.ok) {
-    throw new ApiError(`Login failed: ${response.status}`, response.status);
+    throw new ApiException(`Login failed: ${response.status}`, response.status);
   }
 
-  const user: User = { name: username };
+  const userData = await response.json();
+
+  const user: User = new User(userData.id, username);
   return user;
 };
