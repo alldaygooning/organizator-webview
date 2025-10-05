@@ -178,7 +178,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
             <MenuItem value="">None selected</MenuItem>
             {Array.from(addresses.entries()).map(([id, address]) => (
               <MenuItem key={id} value={id}>
-                {address.street}, {address.zip}
+                {address.street}:{address.zip}
               </MenuItem>
             ))}
           </Select>

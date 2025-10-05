@@ -28,13 +28,11 @@ class NotificationService {
 
   notify(options: NotificationOptions) {
     const context = this.getContext();
-    console.log('Calling notify with context:', !!context, 'options:', options);
     context?.notify(options);
   }
 
   info(title: string, message: string) {
     const context = this.getContext();
-    console.log('Calling info with context:', !!context, 'title:', title);
     context?.info(title, message);
   }
 
@@ -52,7 +50,6 @@ class NotificationService {
 
   success(title: string, message: string) {
     const context = this.getContext();
-    console.log('Calling success with context:', !!context, 'title:', title);
     context?.success(title, message);
   }
 }

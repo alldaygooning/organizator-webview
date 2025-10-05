@@ -17,6 +17,7 @@ interface DatabaseContextType {
   // Organization methods
   setOrganizations: (orgs: Map<number, Organization>) => void;
   addOrganization: (id: number, organization: Organization) => void;
+  updateOrganization: (id: number, organization: Organization) => void;
   removeOrganization: (id: number) => void;
 
   // Coordinates methods
@@ -102,6 +103,16 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({
     setOrganizations((prev) => new Map(prev).set(id, organization));
   };
 
+  const updateOrganization = (id: number, organization: Organization) => {
+    setOrganizations((prev) => {
+      const newMap = new Map(prev);
+      if (newMap.has(id)) {
+        newMap.set(id, organization);
+      }
+      return newMap;
+    });
+  };
+
   const removeOrganization = (id: number) => {
     setOrganizations((prev) => {
       const newMap = new Map(prev);
@@ -142,6 +153,7 @@ export const DatabaseProvider: React.FC<{ children: ReactNode }> = ({
     addresses,
     setOrganizations,
     addOrganization,
+    updateOrganization,
     removeOrganization,
     setCoordinates,
     addCoordinates,

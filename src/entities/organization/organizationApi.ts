@@ -49,7 +49,7 @@ export const createOrganizationData = async ({
             });
             if (coordinatesResponse.status === 201) { // HTTP 201 Created
                 ids.coordinatesId = coordinatesResponse.data.id;
-                notificationService.success(`(${x}; ${y}) added to database`, "You can now use it")
+                notificationService.info(`(${x}; ${y}) added to database`, "You can now use it")
             } else if (coordinatesResponse.status === 401) {
                 throw new Error("Unauthorized to create coordinates");
             } else {
@@ -66,7 +66,7 @@ export const createOrganizationData = async ({
             });
             if (addressResponse.status === 201) { // HTTP 201 Created
                 ids.addressId = addressResponse.data.id;
-                notificationService.success(`${street}:${zipCode} added to database`, "You can now use it")
+                notificationService.info(`${street}:${zipCode} added to database`, "You can now use it")
             } else if (addressResponse.status === 401) {
                 throw new Error("Unauthorized to create address");
             } else {
@@ -83,7 +83,7 @@ export const createOrganizationData = async ({
             });
             if (postalAddressResponse.status === 201) { // HTTP 201 Created
                 ids.postalAddressId = postalAddressResponse.data.id;
-                notificationService.success(`${postalStreet}:${postalZipCode} added to database`, "You can now use it")
+                notificationService.info(`${postalStreet}:${postalZipCode} added to database`, "You can now use it")
             } else if (postalAddressResponse.status === 401) {
                 throw new Error("Unauthorized to create postal address");
             } else {

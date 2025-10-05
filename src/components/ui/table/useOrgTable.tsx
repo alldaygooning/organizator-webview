@@ -4,6 +4,10 @@ import { useMemo } from "react";
 import { useDatabase } from "../../context/DatabaseContext";
 import { useUser } from "../../context/UserContext";
 import AddButton from "./AddButton";
+import EditButton from "./EditButton"; // Import the new EditButton
+import { Box, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { notificationService } from "../../../notification/notification";
 
 export const useOrgTable = () => {
   const db = useDatabase();
@@ -18,7 +22,7 @@ export const useOrgTable = () => {
   return useMaterialReactTable({
     columns,
     data,
-    enableEditing: false,
+    enableEditing: true, // THIS FOR DELETION??? WHAAAT?
     enableRowActions: true,
     enableColumnFilters: true,
     enableGlobalFilter: true,
@@ -30,5 +34,53 @@ export const useOrgTable = () => {
 
     renderTopToolbarCustomActions: () =>
       userContext.isLoggedIn ? <AddButton /> : "",
+
+    renderRowActions: ({ row }) => {
+      const organization = row.original;
+
+      // Only show actions for organizations owned by the logged-in user
+      if (
+        userContext.isLoggedIn &&
+        userContext.user?.id === organization.ownerId
+      ) {
+        return (
+          <Box sx={{ display: "flex", gap: "1rem" }}>
+            <EditButton organization={organization} />
+            <IconButton
+              color="error"
+              onClick={() =>
+                handleDeleteOrganization(organization.id, organization.name)
+              }
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        );
+      }
+
+      return null;
+    },
   });
+};
+
+const handleDeleteOrganization = async (id: number, name: string) => {
+  try {
+    const response = await fetch(`/api/organizations/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      notificationService.info(
+        `${name} deleted`,
+        "You will never see it again..."
+      );
+    } else {
+      console.error("Failed to delete organization");
+    }
+  } catch (error) {
+    console.error("Error deleting organization:", error);
+  }
 };

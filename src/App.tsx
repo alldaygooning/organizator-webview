@@ -4,6 +4,7 @@ import { Box, Container } from "@mui/material";
 import { DatabaseProvider } from "./components/context/DatabaseContext";
 import { UserProvider } from "./components/context/UserContext";
 import UserHeader from "./components/ui/user/UserHeader";
+import { SSEEventListener } from "./components/context/SSEListener";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
                 <OrgTable />
               </Box>
             </Container>
+            <SSEEventListener />
           </UserProvider>
         </DatabaseProvider>
       </NotificationProvider>
