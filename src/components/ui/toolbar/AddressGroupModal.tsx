@@ -7,8 +7,6 @@ import {
   ListItemText,
   Typography,
   Box,
-  Chip,
-  Divider,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import type { Address } from "../../../entities/organization/attribute/Address";
@@ -41,7 +39,7 @@ const AddressGroupModal: React.FC<AddressGroupModalProps> = ({
       </DialogTitle>
       <DialogContent>
         <List>
-          {addressCounts.map((projection, index) => {
+          {addressCounts.map((projection) => {
             const address = addresses.get(projection.addressId);
             const addressString = address
               ? `${address.street}:${address.zip}`

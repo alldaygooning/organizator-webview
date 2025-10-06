@@ -1,12 +1,18 @@
 
 
 export class NumberFormatException extends Error {
-    private readonly n: number;
+    private readonly _n: number;
 
     constructor(n: number) {
         super();
-        this.n = n;
+        this._n = n;
     }
+
+
+    public get n(): number {
+        return this._n;
+    }
+
 }
 
 export class ApiException extends Error {
