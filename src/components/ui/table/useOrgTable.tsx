@@ -27,7 +27,7 @@ export const useOrgTable = () => {
     enableRowActions: true,
     enableColumnFilters: true,
     enableGlobalFilter: true,
-    enablePagination: false,
+    enablePagination: true,
     enableSorting: true,
     enableColumnActions: false,
     enableHiding: false,
