@@ -26,7 +26,7 @@ Webview is a React frontend application for managing organizational data for [Or
 
 **Production Mode**: Builds the application using `npm run build`, which creates optimized production bundles using Vite's build system. Runs in a [Docker container](https://github.com/alldaygooning/organizator/blob/master/nginx/Dockerfile.prod) bundeled together with NGINX.
 
-For comprehensive deployment instructions and environment configuration details, refer to the [📘 Organizator Deployment Guide](https://github.com/alldaygooning/organizator/blob/master/README.md).
+For comprehensive deployment instructions and environment configuration details, refer to the [📘 Organizator Deployment Guide](https://github.com/alldaygooning/organizator?tab=readme-ov-file#development-mode).
 
 ## Authentication
 
