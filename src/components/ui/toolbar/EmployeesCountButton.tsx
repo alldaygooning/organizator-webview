@@ -7,7 +7,7 @@ const EmployeesCountButton = () => {
 
   const handleEmployeesCount = async () => {
     try {
-      const response = await fetch("/api/organizations/employee-count", {
+      const response = await fetch("api/organizations/employee-count", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

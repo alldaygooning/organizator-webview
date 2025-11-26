@@ -101,7 +101,7 @@ export const createOrganizationData = async ({
 };
 
 export const createCoordinates = async (data: { x: number; y: number }) => {
-    const response = await fetch('/api/organizations/coordinates/create', {
+    const response = await fetch('api/organizations/coordinates/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export const createCoordinates = async (data: { x: number; y: number }) => {
 };
 
 export const createAddress = async (data: { street: string; zip: string }) => {
-    const response = await fetch('/api/organizations/addresses/create', {
+    const response = await fetch('api/organizations/addresses/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ export const createOrganization = async (data: {
     rating: number;
     type: OrganizationType;
 }) => {
-    const response = await fetch('/api/organizations/create', {
+    const response = await fetch('api/organizations/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

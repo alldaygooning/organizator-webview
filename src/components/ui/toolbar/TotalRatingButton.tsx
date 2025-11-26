@@ -7,7 +7,7 @@ const TotalRatingButton = () => {
 
   const handleTotalRating = async () => {
     try {
-      const response = await fetch("/api/organizations/total-rating", {
+      const response = await fetch("api/organizations/total-rating", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -80,7 +80,7 @@ export const useOrgTable = () => {
 
 const handleDeleteOrganization = async (id: number, name: string) => {
   try {
-    const response = await fetch(`/api/organizations/delete/${id}`, {
+    const response = await fetch(`api/organizations/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

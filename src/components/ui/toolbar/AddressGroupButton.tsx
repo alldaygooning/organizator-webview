@@ -20,7 +20,7 @@ const AddressGroupButton = () => {
 
   const handleAddressGroup = async () => {
     try {
-      const response = await fetch("/api/organizations/group-by-address", {
+      const response = await fetch("api/organizations/group-by-address", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -40,7 +40,7 @@ export const SSEEventListener: React.FC = () => {
   useEffect(() => {
     console.log("SSE: Creating EventSource connection");
 
-    const eventSource = new EventSource("/api/organizations/sse", {
+    const eventSource = new EventSource("api/organizations/sse", {
       withCredentials: false,
     });
 

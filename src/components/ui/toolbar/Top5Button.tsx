@@ -12,7 +12,7 @@ const Top5Button = () => {
 
   const handleTop5 = async () => {
     try {
-      const response = await fetch("/api/organizations/top-turnover", {
+      const response = await fetch("api/organizations/top-turnover", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

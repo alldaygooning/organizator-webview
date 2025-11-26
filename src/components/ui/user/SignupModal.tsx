@@ -77,7 +77,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ open, onClose }) => {
       !repeatPasswordValidation
     ) {
       try {
-        const response = await fetch("/api/users/register", {
+        const response = await fetch("api/users/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

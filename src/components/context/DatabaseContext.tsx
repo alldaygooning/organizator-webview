@@ -42,17 +42,17 @@ interface OrganizationDTO {
 
 // API calls
 const fetchOrganizations = async (): Promise<OrganizationDTO[]> => {
-  const response = await fetch("/api/organizations");
+  const response = await fetch("api/organizations");
   return response.json();
 };
 
 const fetchAddresses = async (): Promise<Address[]> => {
-  const response = await fetch("/api/organizations/addresses");
+  const response = await fetch("api/organizations/addresses");
   return response.json();
 };
 
 const fetchCoordinates = async (): Promise<Coordinates[]> => {
-  const response = await fetch("/api/organizations/coordinates");
+  const response = await fetch("api/organizations/coordinates");
   return response.json();
 };
 

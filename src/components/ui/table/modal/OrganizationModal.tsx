@@ -268,7 +268,7 @@ const OrganizationModal: React.FC<OrganizationModalProps> = ({
 
           if (Object.keys(updatePayload).length > 0) {
             const response = await fetch(
-              `/api/organizations/update/${organization.id}`,
+              `api/organizations/update/${organization.id}`,
               {
                 method: "PATCH",
                 headers: {

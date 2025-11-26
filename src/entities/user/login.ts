@@ -2,7 +2,7 @@ import { ApiException } from "../../exception";
 import { User } from "./User";
 
 export const loginUser = async (username: string, password: string): Promise<User> => {
-  const response = await fetch("/api/users/login", {
+  const response = await fetch("api/users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

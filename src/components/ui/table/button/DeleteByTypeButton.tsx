@@ -21,7 +21,7 @@ export const DeleteByTypeButton: React.FC = () => {
 
   const handleDeleteByType = async (type: OrganizationType) => {
     try {
-      const response = await fetch("/api/organizations/delete/type", {
+      const response = await fetch("api/organizations/delete/type", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
