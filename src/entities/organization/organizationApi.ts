@@ -151,9 +151,17 @@ export const createOrganization = async (data: {
         body: JSON.stringify(data),
     });
 
-    const responseData = await response.json();
-    return {
-        status: response.status,
-        data: responseData
-    };
+    if (response.status === 200 || response.status === 201) {
+        const responseData = await response.json();
+        return {
+            status: response.status,
+            data: responseData
+        };
+    }
+
+    else {
+        return {
+            status: response.status
+        }
+    }
 };

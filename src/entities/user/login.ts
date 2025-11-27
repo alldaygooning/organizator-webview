@@ -19,6 +19,6 @@ export const loginUser = async (username: string, password: string): Promise<Use
 
   const userData = await response.json();
 
-  const user: User = new User(userData.id, username);
+  const user: User = new User(userData.id, username, userData.role);
   return user;
 };

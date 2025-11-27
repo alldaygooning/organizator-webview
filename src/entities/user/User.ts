@@ -1,10 +1,12 @@
 export class User {
     private _id: number;
     private _name: string;
+    private _role: string;
 
-    constructor(id: number, name: string) {
+    constructor(id: number, name: string, role: string) {
         this._id = id;
         this._name = name;
+        this._role = role;
     }
 
     public get id(): number {
@@ -21,10 +23,18 @@ export class User {
         this._name = value;
     }
 
+    public get role(): string {
+        return this._role;
+    }
+    public set role(value: string) {
+        this._role = value;
+    }
+
     toJSON() {
         return {
             _id: this._id,
-            _name: this._name
+            _name: this._name,
+            _role: this._role
         };
     }
 }
