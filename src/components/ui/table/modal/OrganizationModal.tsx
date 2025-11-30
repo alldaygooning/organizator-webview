@@ -223,7 +223,6 @@ const OrganizationModal: React.FC<OrganizationModalProps> = ({
                     "Creation failed",
                     "Failed to create organization resources"
                 );
-                console.log(err);
             }
         } else if (mode === "edit" && organization) {
             try {
